@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-import entites.services.SalaryCal;
 import entities.Employee;
 
 public class Progam {
@@ -47,9 +46,10 @@ public class Progam {
 				mail.forEach(System.out::println);
 			
 				
-			SalaryCal sac = new SalaryCal();
-				
-			double avg = sac.serviceCal(list, p -> p.getName().charAt(0) == 'M');
+			double avg = list.stream()
+					.filter(p -> p.getName().charAt(0) == 'M')
+					.map(p -> p.getSalary())
+					.reduce(0.0, (x, y) -> x + y);
 			System.out.println("Sum of salary of people whose name starts with 'M' : " + String.format("%.2f", avg) );
 		}
 		catch (IOException e){
